@@ -1,0 +1,12 @@
+.menu li a {
+    margin-right: 10px;
+    font-size: large;
+    padding: 12px 30px;
+}
+
+
+.login a {
+    margin-right: 10px;
+    font-size: large;
+    color: white;
+}
