@@ -70,7 +70,7 @@ const Login = () => {
             </div>
             <div className="flex gap-5">
               <button
-                className="btn bg-red-500 hover:bg-red-600 text-white flex gap-5 w-full"
+                className="btn flex gap-5 w-full"
                 // onClick={handleGoogleSignIn}
               >
                 Sign in With <FcGoogle className="text-3xl"></FcGoogle>

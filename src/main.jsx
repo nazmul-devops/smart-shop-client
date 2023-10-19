@@ -6,6 +6,8 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import Home from "./components/Pages/Home.jsx";
 import Login from "./components/Auth/Login.jsx";
+import Register from "./components/Auth/Register.jsx";
+import AddProduct from "./components/Pages/AddProduct.jsx";
 
 const router = createBrowserRouter([
   {
@@ -22,7 +24,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/addProduct",
-        element: <Home></Home>,
+        element: <AddProduct></AddProduct>,
       },
       {
         path: "/myCart",
@@ -30,7 +32,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/register",
-        element: <Home></Home>,
+        element: <Register></Register>,
       },
       {
         path: "/login",

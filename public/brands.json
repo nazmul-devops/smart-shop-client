@@ -1,0 +1,33 @@
+[
+    {
+      "id": 1,
+      "name": "Apple",
+      "logo_url": "https://inneed-assets.s3.ap-south-1.amazonaws.com/nazmul/apple-logo.webp"
+    },
+    {
+      "id": 2,
+      "name": "Samsung",
+      "logo_url": "https://inneed-assets.s3.ap-south-1.amazonaws.com/nazmul/samsung--logo.webp"
+    },
+    {
+      "id": 3,
+      "name": "Huawei",
+      "logo_url": "https://inneed-assets.s3.ap-south-1.amazonaws.com/nazmul/huawei-logo.png"
+    },
+    {
+      "id": 4,
+      "name": "Xiaomi",
+      "logo_url": "https://inneed-assets.s3.ap-south-1.amazonaws.com/nazmul/mi--logo.webp"
+    },
+    {
+      "id": 5,
+      "name": "Sony",
+      "logo_url": "https://inneed-assets.s3.ap-south-1.amazonaws.com/nazmul/sony-logo.png"
+    },
+    {
+      "id": 6,
+      "name": "Logitech",
+      "logo_url": "https://inneed-assets.s3.ap-south-1.amazonaws.com/nazmul/logitech-logo.png"
+    }
+  ]
+  
