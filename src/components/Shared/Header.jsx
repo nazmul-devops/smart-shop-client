@@ -1,20 +1,51 @@
 import { Link, NavLink } from "react-router-dom";
 import "../../App.css";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useContext } from "react";
+import { AuthContext } from "../../providers/AuthProvider";
+
 const Header = () => {
+  const { user, signOutUser } = useContext(AuthContext);
+
+  const handleSignOutUser = () => {
+    signOutUser()
+      .then(() => console.log("User logged out successfully."))
+      .catch(error => console.error(error));
+    toast.success("Log Out successfully.", {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  };
+
   const menu = (
     <>
       <li>
         <NavLink to="/">Home</NavLink>
       </li>
       <li>
-        <NavLink to="/addProduct">Add Product</NavLink>
+        <NavLink to="/products">Products</NavLink>
       </li>
-      <li>
-        <NavLink to="/myCart">My Cart</NavLink>
-      </li>
-      <li>
-        <NavLink to="/register">Register</NavLink>
-      </li>
+      {user ? (
+        <>
+          <li>
+            <NavLink to="/addProduct">Add Product</NavLink>
+          </li>
+          <li>
+            <NavLink to="/myCart">My Cart</NavLink>
+          </li>
+        </>
+      ) : (
+        <li>
+          <NavLink to="/register">Register</NavLink>
+        </li>
+      )}
     </>
   );
 
@@ -58,11 +89,23 @@ const Header = () => {
           <ul className="menu menu-horizontal px-1">{menu}</ul>
         </div>
         <div className="navbar-end">
-          <Link to="/login">
-            <a className="btn">Login</a>
-          </Link>
+          {user && (
+            <p className="mr-3 font-bold">{user.displayName || user.email}</p>
+          )}
+          {user ? (
+            <Link to="/">
+              <a onClick={handleSignOutUser} className="btn">
+                Log Out
+              </a>
+            </Link>
+          ) : (
+            <Link to="/login">
+              <a className="btn">Login</a>
+            </Link>
+          )}
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };

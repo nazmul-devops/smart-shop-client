@@ -22,7 +22,9 @@ const Home = () => {
       <Banner></Banner>
       {/* brand section  */}
       <div className="max-w-7xl mx-auto">
-        <h1 className="text-5xl text-center font-bold my-10">Featured Brands</h1>
+        <h1 className="text-5xl text-center font-bold my-10">
+          Featured Brands
+        </h1>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-5 max-w-7xl mx-auto my-10">
         {brands.map(brand => (
@@ -32,11 +34,6 @@ const Home = () => {
             </figure>
             <div className="card-body">
               <h2 className="card-title justify-center pb-3">{brand.name}</h2>
-              <div className="card-actions justify-center">
-                <button className="btn btn-primary">
-                  See All Apple Products
-                </button>
-              </div>
             </div>
           </div>
         ))}

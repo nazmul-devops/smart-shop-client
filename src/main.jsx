@@ -1,3 +1,5 @@
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
@@ -6,8 +8,12 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import Home from "./components/Pages/Home.jsx";
 import Login from "./components/Auth/Login.jsx";
+import PrivateRoutes from "./routes/PrivateRoutes";
+import MyCart from "./components/Pages/MyCart.jsx";
 import Register from "./components/Auth/Register.jsx";
 import AddProduct from "./components/Pages/AddProduct.jsx";
+import Products from "./components/Pages/Products.jsx";
+import AuthProvider from "./providers/AuthProvider.jsx";
 
 const router = createBrowserRouter([
   {
@@ -19,16 +25,24 @@ const router = createBrowserRouter([
         element: <Home></Home>,
       },
       {
-        path: "/",
-        element: <Home></Home>,
+        path: "/products",
+        element: <Products></Products>,
       },
       {
         path: "/addProduct",
-        element: <AddProduct></AddProduct>,
+        element: (
+          <PrivateRoutes>
+            <AddProduct></AddProduct>
+          </PrivateRoutes>
+        ),
       },
       {
         path: "/myCart",
-        element: <Home></Home>,
+        element: (
+          <PrivateRoutes>
+            <MyCart></MyCart>
+          </PrivateRoutes>
+        ),
       },
       {
         path: "/register",
@@ -44,8 +58,11 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <HelmetProvider>
-      <RouterProvider router={router} />
-    </HelmetProvider>
+    <AuthProvider>
+      <HelmetProvider>
+        <RouterProvider router={router} />
+        <ToastContainer />
+      </HelmetProvider>
+    </AuthProvider>
   </React.StrictMode>
 );

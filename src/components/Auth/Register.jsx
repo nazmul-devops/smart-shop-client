@@ -2,56 +2,72 @@ import Header from "../Shared/Header";
 import Footer from "../Shared/Footer";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Link } from "react-router-dom";
-// import { useContext } from "react";
-// import { Link, useNavigate } from "react-router-dom";
-// import { AuthContext } from "../../providers/AuthProvider";
+import { useContext } from "react";
+import { AuthContext } from "../../providers/AuthProvider";
+import { Link, useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 const Register = () => {
-  // const { createUser } = useContext(AuthContext);
+  const { createUser } = useContext(AuthContext);
 
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
-  // const handleRegister = e => {
-  //   e.preventDefault();
-  //   const email = e.target.email.value;
-  //   const password = e.target.password.value;
+  const handleRegister = e => {
+    e.preventDefault();
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+    const name = e.target.name.value;
+    const phone = e.target.phone.value;
 
-  //   const passMinLength = 6;
-  //   const passHasCapitalLetter = /[A-Z]/.test(password);
-  //   const passHasSpecialCharacter = /[!@#$%^&*()_+{}[\]:;<>,.?~\\-]/.test(
-  //     password
-  //   );
+    const passMinLength = 6;
+    const passHasCapitalLetter = /[A-Z]/.test(password);
+    const passHasSpecialCharacter = /[!@#$%^&*()_+{}[\]:;<>,.?~\\-]/.test(
+      password
+    );
 
-  //   if (password.length < passMinLength) {
-  //     toast.error("Password must be at least 6 characters long.");
-  //     return;
-  //   }
+    if (password.length < passMinLength) {
+      toast.error("Password must be at least 6 characters long.");
+      return;
+    }
 
-  //   if (!passHasCapitalLetter) {
-  //     toast.error("Password must contain at least one capital letter.");
-  //     return;
-  //   }
+    if (!passHasCapitalLetter) {
+      toast.error("Password must contain at least one capital letter.");
+      return;
+    }
 
-  //   if (!passHasSpecialCharacter) {
-  //     toast.error("Password must contain at least one special character.");
-  //     return;
-  //   }
+    if (!passHasSpecialCharacter) {
+      toast.error("Password must contain at least one special character.");
+      return;
+    }
 
-  //   createUser(email, password)
-  //     .then(result => {
-  //       console.log(result.user);
-  //       navigate("/dashboard");
-  //     })
-  //     .catch(error => {
-  //       console.error(error);
-  //     });
-
-  //   toast.success("You have Registered and Signed In successfully.");
-  // };
+    createUser(email, password)
+      .then(result => {
+        console.log(result.user);
+        const user = { email, password, name, phone };
+        fetch("http://localhost:5001/users", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(user),
+        })
+          .then(res => res.json())
+          .then(data => {
+            console.log(data);
+          });
+        navigate("/login");
+      })
+      .catch(error => {
+        console.error(error);
+      });
+    toast.success("You have Registered successfully.");
+  };
 
   return (
     <div>
+      <Helmet>
+        <title>Register Page</title>
+      </Helmet>
       <Header></Header>
       <div>
         <div>
@@ -61,7 +77,7 @@ const Register = () => {
                 <h1 className="text-4xl font-bold">Register here!</h1>
               </div>
               <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
-                <form className="card-body">
+                <form onSubmit={handleRegister} className="card-body">
                   <div className="form-control">
                     <label className="label">
                       <span className="label-text">Name</span>
