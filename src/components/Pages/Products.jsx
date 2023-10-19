@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Footer from "../Shared/Footer";
 import Header from "../Shared/Header";
 import { Helmet } from "react-helmet-async";
+import { Link } from "react-router-dom";
 
 const Products = () => {
   const [products, setProducts] = useState([]);
@@ -37,8 +38,12 @@ const Products = () => {
                 <p className="font-semibold text-xs">{product.selectedType}</p>
                 <p className="font-semibold">{product.price}</p>
                 <div className="card-actions">
-                  <button className="btn btn-primary">Details</button>
-                  <button className="btn btn-primary">Update</button>
+                  <Link to={`/productDetails/${product._id}`}>
+                    <button className="btn btn-primary">Details</button>
+                  </Link>
+                  <Link to={`/updateProduct/${product._id}`}>
+                    <button className="btn btn-primary">Update</button>
+                  </Link>
                 </div>
               </div>
             </div>

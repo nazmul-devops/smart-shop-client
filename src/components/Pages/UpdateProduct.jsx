@@ -1,14 +1,16 @@
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Helmet } from "react-helmet-async";
-import { Link, useNavigate } from "react-router-dom";
 import Header from "../Shared/Header";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import Footer from "../Shared/Footer";
 
-const AddProduct = () => {
+const UpdateProduct = () => {
   const navigate = useNavigate();
+  const loadedProduct = useLoaderData();
+  console.log(loadedProduct);
 
-  const handleAddProduct = e => {
+  const handleUpdateProduct = e => {
     e.preventDefault();
     const pname = e.target.pname.value;
     const bname = e.target.bname.value;
@@ -18,35 +20,43 @@ const AddProduct = () => {
     const des = e.target.des.value;
     const rating = e.target.rating.value;
 
-    const product = { pname, bname, selectedType, price, des, image, rating };
-    fetch("http://localhost:5001/products/", {
-      method: "POST",
+    const updatedProduct = {
+      pname,
+      bname,
+      selectedType,
+      price,
+      des,
+      image,
+      rating,
+    };
+    fetch(`http://localhost:5001/products/${loadedProduct._id}`, {
+      method: "PUT",
       headers: {
         "content-type": "application/json",
       },
-      body: JSON.stringify(product),
+      body: JSON.stringify(updatedProduct),
     })
       .then(res => res.json())
       .then(data => {
         console.log(data);
       });
     navigate("/products");
-    toast.success("Product Added successfully.");
+    toast.success("Product Updated successfully.");
   };
 
   return (
     <div>
       <Helmet>
-        <title>Add New Product</title>
+        <title>Update Product</title>
       </Helmet>
       <Header></Header>
       <div className="hero min-h-screen bg-base-200">
         <div className="hero-content flex-col w-full">
           <div className="text-center">
-            <h1 className="text-4xl font-bold">Add New Product</h1>
+            <h1 className="text-4xl font-bold">Update Product</h1>
           </div>
-          <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
-            <form onSubmit={handleAddProduct} className="card-body">
+          <div className="card flex-shrink-0 w-full max-w-md shadow-2xl bg-base-100">
+            <form onSubmit={handleUpdateProduct} className="card-body">
               <div className="form-control">
                 <label className="label">
                   <span className="label-text">Product Name</span>
@@ -55,6 +65,7 @@ const AddProduct = () => {
                   type="text"
                   placeholder="Product Name"
                   name="pname"
+                  defaultValue={loadedProduct.pname}
                   className="input input-bordered"
                   required
                 />
@@ -68,16 +79,21 @@ const AddProduct = () => {
                   type="text"
                   placeholder="Brand Name"
                   name="bname"
+                  defaultValue={loadedProduct.bname}
                   className="input input-bordered"
                   required
                 />
               </div>
 
-              <div className="form-control w-full max-w-xs">
+              <div className="form-control w-full max-w-md">
                 <label className="label">
                   <span className="label-text">Pick Type</span>
                 </label>
-                <select className="select select-bordered" name="selectedType">
+                <select
+                  className="select select-bordered"
+                  name="selectedType"
+                  defaultValue={loadedProduct.selectedType}
+                >
                   <option disabled selected>
                     Select Product Type
                   </option>
@@ -97,6 +113,7 @@ const AddProduct = () => {
                   type="text"
                   placeholder="Price"
                   name="price"
+                  defaultValue={loadedProduct.price}
                   className="input input-bordered"
                   required
                 />
@@ -110,6 +127,7 @@ const AddProduct = () => {
                   type="text"
                   placeholder="Image URL"
                   name="image"
+                  defaultValue={loadedProduct.image}
                   className="input input-bordered"
                   required
                 />
@@ -121,16 +139,21 @@ const AddProduct = () => {
                 </label>
                 <textarea
                   name="des"
+                  defaultValue={loadedProduct.des}
                   className="textarea textarea-bordered"
                   placeholder="Short Description"
                 ></textarea>
               </div>
 
-              <div className="form-control w-full max-w-xs">
+              <div className="form-control w-full max-w-md">
                 <label className="label">
                   <span className="label-text">Rating</span>
                 </label>
-                <select className="select select-bordered" name="rating">
+                <select
+                  className="select select-bordered"
+                  name="rating"
+                  defaultValue={loadedProduct.rating}
+                >
                   <option disabled selected>
                     Select Rating
                   </option>
@@ -143,13 +166,8 @@ const AddProduct = () => {
               </div>
 
               <div className="form-control mt-6">
-                <button className="btn btn-error">Add Product</button>
-                <p className="py-4">
-                  Do not have an account?
-                  <Link className="ml-3" to="/register">
-                    <button className="btn-link">Register Here</button>
-                  </Link>
-                </p>
+                <button className="btn btn-info">Update Product</button>
+                {/* <button className="btn btn-error">Delete Product</button> */}
               </div>
             </form>
           </div>
@@ -161,4 +179,4 @@ const AddProduct = () => {
   );
 };
 
-export default AddProduct;
+export default UpdateProduct;

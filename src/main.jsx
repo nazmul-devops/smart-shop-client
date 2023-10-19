@@ -14,6 +14,9 @@ import Register from "./components/Auth/Register.jsx";
 import AddProduct from "./components/Pages/AddProduct.jsx";
 import Products from "./components/Pages/Products.jsx";
 import AuthProvider from "./providers/AuthProvider.jsx";
+import NotFound from "./components/Pages/NotFound.jsx";
+import UpdateProduct from "./components/Pages/UpdateProduct.jsx";
+import ProductDetails from "./components/Pages/ProductDetails.jsx";
 
 const router = createBrowserRouter([
   {
@@ -37,6 +40,18 @@ const router = createBrowserRouter([
         ),
       },
       {
+        path: "/updateProduct/:id",
+        element: <UpdateProduct></UpdateProduct>,
+        loader: ({ params }) =>
+          fetch(`http://localhost:5001/products/${params.id}`),
+      },
+      {
+        path: "/productDetails/:id",
+        element: <ProductDetails></ProductDetails>,
+        loader: ({ params }) =>
+          fetch(`http://localhost:5001/products/${params.id}`),
+      },
+      {
         path: "/myCart",
         element: (
           <PrivateRoutes>
@@ -51,6 +66,10 @@ const router = createBrowserRouter([
       {
         path: "/login",
         element: <Login></Login>,
+      },
+      {
+        path: "*",
+        element: <NotFound></NotFound>,
       },
     ],
   },
