@@ -48,7 +48,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/updateProduct/:id",
-        element: <UpdateProduct></UpdateProduct>,
+        element: (
+          <PrivateRoutes>
+            <UpdateProduct></UpdateProduct>
+          </PrivateRoutes>
+        ),
         loader: ({ params }) =>
           fetch(`https://smart-shop-server.abcfanbd.com/products/${params.id}`),
       },
