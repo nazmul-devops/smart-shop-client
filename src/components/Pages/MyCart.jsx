@@ -6,6 +6,7 @@ import { useContext, useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../providers/AuthProvider";
 import { Helmet } from "react-helmet-async";
+import { Link } from "react-router-dom";
 
 const MyCart = () => {
   const { user } = useContext(AuthContext);
@@ -60,10 +61,14 @@ const MyCart = () => {
       <Header></Header>
       <div className="max-w-7xl mx-auto">
         <div>
-          <h1 className="text-5xl text-center font-bold my-10">
+          <div className=" text-center ">
+          <h1 className="text-3xl font-bold my-10">
             Cart Products: {cartData.length}
           </h1>
-          <hr className="border-b-4 border-gray-200 w-1/3 mx-auto" />
+          <Link to="/allProducts">
+            <button className="btn btn-info">Show All Products</button>
+          </Link>
+          </div>
         </div>
         <div className="my-10">
           {cartData.map(cart => (

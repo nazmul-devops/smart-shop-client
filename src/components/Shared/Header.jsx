@@ -37,7 +37,9 @@ const Header = () => {
           <NavLink to="/myCart">My Cart</NavLink>
         </li>
       </>
-      {user && (
+      {user ? (
+        <></>
+      ) : (
         <li>
           <NavLink to="/register">Register</NavLink>
         </li>
