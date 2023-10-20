@@ -1,11 +1,22 @@
-import Banner from "../Shared/Banner";
+import { useEffect, useState } from "react";
 import Footer from "../Shared/Footer";
 import Header from "../Shared/Header";
 import { Helmet } from "react-helmet-async";
-import { Link, useLoaderData } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const BrandProducts = () => {
-  const products = useLoaderData();
+  const [brandProducts, setBrandProducts] = useState([]);
+
+  const { brandName } = useParams();
+
+  useEffect(() => {
+    fetch(
+      `https://smart-shop.inneedcloud.com/products-by-brand/${brandName}`
+    )
+      .then(res => res.json())
+      .then(data => setBrandProducts(data))
+      .catch(error => console.error("Error fetching data:", error));
+  }, []);
 
   return (
     <div>
@@ -13,13 +24,24 @@ const BrandProducts = () => {
         <title>Brand Products Page</title>
       </Helmet>
       <Header></Header>
-      <Banner></Banner>
+      <div className="max-w-7xl mx-auto">
+        <h1 className="text-center font-bold text-2xl my-5">
+          Brand Slider Please swap to see the carousel
+        </h1>
+        <div className="carousel rounded-box w-full">
+          {brandProducts.map(product => (
+            <div key={product._id} className="carousel-item w-full h-[500px]">
+              <img src={product.image} className="w-full" />
+            </div>
+          ))}
+        </div>
+      </div>
       <div>
         <h1 className="max-w-7xl mx-auto my-10">
-          {/* { selectedBrands.filter(brand => brand.name == 'Apple') } Brand Products: {selectedBrand.length} */}
+          Brand Products: {brandProducts.length}
         </h1>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5 max-w-7xl mx-auto my-10">
-          {products.map(product => (
+          {brandProducts.map(product => (
             <div key={product._id} className="card bg-base-100 shadow-xl">
               <figure className="px-10 pt-10">
                 <img

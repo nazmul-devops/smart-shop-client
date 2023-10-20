@@ -29,9 +29,8 @@ const router = createBrowserRouter([
         loader: () => fetch(`https://smart-shop.inneedcloud.com/products/`),
       },
       {
-        path: "/brandProducts/",
+        path: "/brandProducts/:brandName",
         element: <BrandProducts></BrandProducts>,
-        loader: () => fetch(`https://smart-shop.inneedcloud.com/products/`),
       },
       {
         path: "/addProduct",
@@ -64,6 +63,7 @@ const router = createBrowserRouter([
             <MyCart></MyCart>
           </PrivateRoutes>
         ),
+        // loader: () => fetch(`http://localhost:5001/products/myCart`),
       },
       {
         path: "/register",

@@ -1,16 +1,40 @@
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Link, useLoaderData } from "react-router-dom";
+import { Link, useLoaderData, useNavigate } from "react-router-dom";
 import Footer from "../Shared/Footer";
 import Header from "../Shared/Header";
 
 const ProductDetails = () => {
+  const navigate = useNavigate();
+
+  //   const {id} = useParams()
+  // useEffect(()=>{
+
+  // },[id])
+
+  const loadedProduct = useLoaderData();
+
+  console.log(loadedProduct);
+
   const handleAddToCart = () => {
-    console.log("Added to Cart");
+    const product = loadedProduct;
+    delete product._id;
+
+    fetch("http://localhost:5001/add-to-cart", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(product),
+    })
+      .then(res => res.json())
+      .then(data => {
+        console.log(data);
+      });
+    navigate("/myCart");
     toast.success("Product added to your cart successfully.");
   };
-  const loadedProduct = useLoaderData();
-  console.log(loadedProduct);
+
   return (
     <div>
       <Header></Header>
@@ -33,6 +57,8 @@ const ProductDetails = () => {
               {loadedProduct.selectedType}
             </p>
             <p className="font-semibold">{loadedProduct.price}</p>
+            <p className="text-xs">{loadedProduct.des}</p>
+            <p>Rating: {loadedProduct.rating}</p>
             <div className="card-actions">
               <Link to="/myCart">
                 <button onClick={handleAddToCart} className="btn btn-success">
