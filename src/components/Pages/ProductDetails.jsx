@@ -1,3 +1,5 @@
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { Link, useLoaderData } from "react-router-dom";
 import Footer from "../Shared/Footer";
 import Header from "../Shared/Header";
@@ -5,6 +7,7 @@ import Header from "../Shared/Header";
 const ProductDetails = () => {
   const handleAddToCart = () => {
     console.log("Added to Cart");
+    toast.success("Product added to your cart successfully.");
   };
   const loadedProduct = useLoaderData();
   console.log(loadedProduct);
@@ -39,6 +42,7 @@ const ProductDetails = () => {
             </div>
           </div>
         </div>
+        <ToastContainer />
       </div>
       <Footer></Footer>
     </div>

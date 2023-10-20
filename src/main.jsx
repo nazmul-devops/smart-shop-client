@@ -12,11 +12,11 @@ import PrivateRoutes from "./routes/PrivateRoutes";
 import MyCart from "./components/Pages/MyCart.jsx";
 import Register from "./components/Auth/Register.jsx";
 import AddProduct from "./components/Pages/AddProduct.jsx";
-import Products from "./components/Pages/Products.jsx";
 import AuthProvider from "./providers/AuthProvider.jsx";
 import NotFound from "./components/Pages/NotFound.jsx";
 import UpdateProduct from "./components/Pages/UpdateProduct.jsx";
 import ProductDetails from "./components/Pages/ProductDetails.jsx";
+import BrandProducts from "./components/Pages/BrandProducts.jsx";
 
 const router = createBrowserRouter([
   {
@@ -26,10 +26,12 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home></Home>,
+        loader: () => fetch(`https://smart-shop.inneedcloud.com/products/`),
       },
       {
-        path: "/products",
-        element: <Products></Products>,
+        path: "/brandProducts/",
+        element: <BrandProducts></BrandProducts>,
+        loader: () => fetch(`https://smart-shop.inneedcloud.com/products/`),
       },
       {
         path: "/addProduct",
@@ -43,13 +45,17 @@ const router = createBrowserRouter([
         path: "/updateProduct/:id",
         element: <UpdateProduct></UpdateProduct>,
         loader: ({ params }) =>
-          fetch(`http://localhost:5001/products/${params.id}`),
+          fetch(`https://smart-shop.inneedcloud.com/products/${params.id}`),
       },
       {
         path: "/productDetails/:id",
-        element: <ProductDetails></ProductDetails>,
+        element: (
+          <PrivateRoutes>
+            <ProductDetails></ProductDetails>
+          </PrivateRoutes>
+        ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5001/products/${params.id}`),
+          fetch(`https://smart-shop.inneedcloud.com/products/${params.id}`),
       },
       {
         path: "/myCart",

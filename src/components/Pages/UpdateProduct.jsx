@@ -29,7 +29,7 @@ const UpdateProduct = () => {
       image,
       rating,
     };
-    fetch(`http://localhost:5001/products/${loadedProduct._id}`, {
+    fetch(`https://smart-shop.inneedcloud.com/products/${loadedProduct._id}`, {
       method: "PUT",
       headers: {
         "content-type": "application/json",
@@ -40,7 +40,7 @@ const UpdateProduct = () => {
       .then(data => {
         console.log(data);
       });
-    navigate("/products");
+    navigate("/");
     toast.success("Product Updated successfully.");
   };
 

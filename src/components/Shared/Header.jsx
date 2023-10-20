@@ -29,10 +29,6 @@ const Header = () => {
       <li>
         <NavLink to="/">Home</NavLink>
       </li>
-      <li>
-        <NavLink to="/products">Products</NavLink>
-      </li>
-      {user ? (
         <>
           <li>
             <NavLink to="/addProduct">Add Product</NavLink>
@@ -41,11 +37,11 @@ const Header = () => {
             <NavLink to="/myCart">My Cart</NavLink>
           </li>
         </>
-      ) : (
+
         <li>
           <NavLink to="/register">Register</NavLink>
         </li>
-      )}
+
     </>
   );
 
@@ -90,7 +86,10 @@ const Header = () => {
         </div>
         <div className="navbar-end">
           {user && (
+            <>
+            <img className="w-14 rounded-full mr-3" src={user.photoURL} alt="" />
             <p className="mr-3 font-bold">{user.displayName || user.email}</p>
+            </>
           )}
           {user ? (
             <Link to="/">

@@ -19,7 +19,7 @@ const AddProduct = () => {
     const rating = e.target.rating.value;
 
     const product = { pname, bname, selectedType, price, des, image, rating };
-    fetch("http://localhost:5001/products/", {
+    fetch("https://smart-shop.inneedcloud.com/products/", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -30,7 +30,7 @@ const AddProduct = () => {
       .then(data => {
         console.log(data);
       });
-    navigate("/products");
+    navigate("/brandProducts");
     toast.success("Product Added successfully.");
   };
 
@@ -45,7 +45,7 @@ const AddProduct = () => {
           <div className="text-center">
             <h1 className="text-4xl font-bold">Add New Product</h1>
           </div>
-          <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+          <div className="card flex-shrink-0 w-full max-w-lg shadow-2xl bg-base-100">
             <form onSubmit={handleAddProduct} className="card-body">
               <div className="form-control">
                 <label className="label">
@@ -73,7 +73,7 @@ const AddProduct = () => {
                 />
               </div>
 
-              <div className="form-control w-full max-w-xs">
+              <div className="form-control w-full max-w-lg">
                 <label className="label">
                   <span className="label-text">Pick Type</span>
                 </label>
@@ -83,9 +83,11 @@ const AddProduct = () => {
                   </option>
                   <option>Smart Phone</option>
                   <option>Laptop</option>
+                  <option>Tablet</option>
                   <option>Headphone</option>
                   <option>Desktop</option>
                   <option>Microphone</option>
+                  <option>Accessories</option>
                 </select>
               </div>
 
@@ -126,7 +128,7 @@ const AddProduct = () => {
                 ></textarea>
               </div>
 
-              <div className="form-control w-full max-w-xs">
+              <div className="form-control w-full max-w-lg">
                 <label className="label">
                   <span className="label-text">Rating</span>
                 </label>
