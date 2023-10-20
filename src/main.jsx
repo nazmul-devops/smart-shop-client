@@ -27,7 +27,7 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home></Home>,
-        loader: () => fetch(`https://smart-shop.inneedcloud.com/products/`),
+        loader: () => fetch(`https://smart-shop-server.abcfanbd.com/products/`),
       },
       {
         path: "/brandProducts/:brandName",
@@ -36,7 +36,7 @@ const router = createBrowserRouter([
       {
         path: "/allProducts",
         element: <AllProducts></AllProducts>,
-        loader: () => fetch(`https://smart-shop.inneedcloud.com/products/`),
+        loader: () => fetch(`https://smart-shop-server.abcfanbd.com/products/`),
       },
       {
         path: "/addProduct",
@@ -50,7 +50,7 @@ const router = createBrowserRouter([
         path: "/updateProduct/:id",
         element: <UpdateProduct></UpdateProduct>,
         loader: ({ params }) =>
-          fetch(`https://smart-shop.inneedcloud.com/products/${params.id}`),
+          fetch(`https://smart-shop-server.abcfanbd.com/products/${params.id}`),
       },
       {
         path: "/productDetails/:id",
@@ -60,7 +60,7 @@ const router = createBrowserRouter([
           </PrivateRoutes>
         ),
         loader: ({ params }) =>
-          fetch(`https://smart-shop.inneedcloud.com/products/${params.id}`),
+          fetch(`https://smart-shop-server.abcfanbd.com/products/${params.id}`),
       },
       {
         path: "/myCart",
