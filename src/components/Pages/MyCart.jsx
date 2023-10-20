@@ -13,7 +13,7 @@ const MyCart = () => {
   const userEmail = user.email;
 
   const fetchUserCart = () => {
-    fetch(`http://localhost:5001/get-cart/${userEmail}`)
+    fetch(`https://smart-shop-server.abcfanbd.com/get-cart/${userEmail}`)
       .then(res => res.json())
       .then(data => {
         // Handle the cart data here
@@ -33,9 +33,12 @@ const MyCart = () => {
     }).then(result => {
       if (result.isConfirmed) {
         // User confirmed, proceed with deletion
-        fetch(`http://localhost:5001/delete-cart-item/${itemId}`, {
-          method: "DELETE",
-        })
+        fetch(
+          `https://smart-shop-server.abcfanbd.com/delete-cart-item/${itemId}`,
+          {
+            method: "DELETE",
+          }
+        )
           .then(res => res.json())
           .then(data => {
             setCartData(prevCart =>
@@ -62,12 +65,12 @@ const MyCart = () => {
       <div className="max-w-7xl mx-auto">
         <div>
           <div className=" text-center ">
-          <h1 className="text-3xl font-bold my-10">
-            Cart Products: {cartData.length}
-          </h1>
-          <Link to="/allProducts">
-            <button className="btn btn-info">Show All Products</button>
-          </Link>
+            <h1 className="text-3xl font-bold my-10">
+              Cart Products: {cartData.length}
+            </h1>
+            <Link to="/allProducts">
+              <button className="btn btn-info">Show All Products</button>
+            </Link>
           </div>
         </div>
         <div className="my-10">

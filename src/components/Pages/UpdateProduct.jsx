@@ -29,13 +29,16 @@ const UpdateProduct = () => {
       image,
       rating,
     };
-    fetch(`https://smart-shop.inneedcloud.com/products/${loadedProduct._id}`, {
-      method: "PUT",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(updatedProduct),
-    })
+    fetch(
+      `https://smart-shop-server.abcfanbd.com/products/${loadedProduct._id}`,
+      {
+        method: "PUT",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(updatedProduct),
+      }
+    )
       .then(res => res.json())
       .then(data => {
         console.log(data);

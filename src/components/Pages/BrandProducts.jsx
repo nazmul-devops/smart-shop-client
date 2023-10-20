@@ -10,7 +10,9 @@ const BrandProducts = () => {
   const { brandName } = useParams();
 
   useEffect(() => {
-    fetch(`https://smart-shop.inneedcloud.com/products-by-brand/${brandName}`)
+    fetch(
+      `https://smart-shop-server.abcfanbd.com/products-by-brand/${brandName}`
+    )
       .then(res => res.json())
       .then(data => setBrandProducts(data))
       .catch(error => console.error("Error fetching data:", error));

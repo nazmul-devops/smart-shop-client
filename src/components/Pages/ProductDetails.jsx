@@ -21,7 +21,7 @@ const ProductDetails = () => {
     const product = loadedProduct;
     // delete product._id;
 
-    fetch("http://localhost:5001/add-to-cart", {
+    fetch("https://smart-shop-server.abcfanbd.com/add-to-cart", {
       method: "POST",
       headers: {
         "content-type": "application/json",

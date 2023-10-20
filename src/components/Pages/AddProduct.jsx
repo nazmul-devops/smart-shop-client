@@ -19,7 +19,7 @@ const AddProduct = () => {
     const rating = e.target.rating.value;
 
     const product = { pname, bname, selectedType, price, des, image, rating };
-    fetch("https://smart-shop.inneedcloud.com/products/", {
+    fetch("https://smart-shop-server.abcfanbd.com/products/", {
       method: "POST",
       headers: {
         "content-type": "application/json",
