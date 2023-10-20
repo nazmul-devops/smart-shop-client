@@ -3,14 +3,15 @@ import "react-toastify/dist/ReactToastify.css";
 import { Link, useLoaderData, useNavigate } from "react-router-dom";
 import Footer from "../Shared/Footer";
 import Header from "../Shared/Header";
+import { useContext } from "react";
+import { AuthContext } from "../../providers/AuthProvider";
 
 const ProductDetails = () => {
+  const { user } = useContext(AuthContext);
+  const userEmail = user.email;
+  console.log(userEmail);
+
   const navigate = useNavigate();
-
-  //   const {id} = useParams()
-  // useEffect(()=>{
-
-  // },[id])
 
   const loadedProduct = useLoaderData();
 
@@ -18,14 +19,14 @@ const ProductDetails = () => {
 
   const handleAddToCart = () => {
     const product = loadedProduct;
-    delete product._id;
+    // delete product._id;
 
     fetch("http://localhost:5001/add-to-cart", {
       method: "POST",
       headers: {
         "content-type": "application/json",
       },
-      body: JSON.stringify(product),
+      body: JSON.stringify({ product, userEmail }),
     })
       .then(res => res.json())
       .then(data => {

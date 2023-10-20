@@ -2,36 +2,89 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Header from "../Shared/Header";
 import Footer from "../Shared/Footer";
-// import { useLoaderData } from "react-router-dom";
-// import { useContext } from "react";
-// import { AuthContext } from "../../providers/AuthProvider";
-// import Swal from 'sweetalert2'
+import { useContext, useEffect, useState } from "react";
+import Swal from "sweetalert2";
+import { AuthContext } from "../../providers/AuthProvider";
+import { Helmet } from "react-helmet-async";
 
 const MyCart = () => {
-  // const { user } =useContext(AuthContext);
+  const { user } = useContext(AuthContext);
+  const userEmail = user.email;
 
-  // // const cartProducts = useLoaderData();
-  // console.log(cartProducts);
+  const fetchUserCart = () => {
+    fetch(`http://localhost:5001/get-cart/${userEmail}`)
+      .then(res => res.json())
+      .then(data => {
+        // Handle the cart data here
+        setCartData(data);
+      });
+  };
+
+  const handleDeleteCartItem = itemId => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it",
+    }).then(result => {
+      if (result.isConfirmed) {
+        // User confirmed, proceed with deletion
+        fetch(`http://localhost:5001/delete-cart-item/${itemId}`, {
+          method: "DELETE",
+        })
+          .then(res => res.json())
+          .then(data => {
+            setCartData(prevCart =>
+              prevCart.filter(item => item._id !== itemId)
+            );
+            console.log(data);
+          });
+        Swal.fire("Deleted!", "Your product has been deleted.", "success");
+      }
+    });
+  };
+
+  const [cartData, setCartData] = useState([]);
+  useEffect(() => {
+    fetchUserCart();
+  }, []);
 
   return (
     <div>
+      <Helmet>
+        <title>My Cart</title>
+      </Helmet>
       <Header></Header>
       <div className="max-w-7xl mx-auto">
         <div>
           <h1 className="text-5xl text-center font-bold my-10">
-            Cart Products
+            Cart Products: {cartData.length}
           </h1>
           <hr className="border-b-4 border-gray-200 w-1/3 mx-auto" />
         </div>
-        <div>
-          <div className="flex">
-            <img src="" alt="" />
-            <div>
-              <h1>Product Name:</h1>
-              <p>Price: </p>
-              <button>Delete</button>
+        <div className="my-10">
+          {cartData.map(cart => (
+            <div key={cart._id} className="my-10">
+              <div className="flex gap-5 justify-center items-center">
+                <img className="w-32 rounded" src={cart.product.image} alt="" />
+                <div className="text-xl font-semibold space-y-5">
+                  <h1>Product Name: {cart.product.pname}</h1>
+                  <p>Price: {cart.product.price}</p>
+                </div>
+              </div>
+              <div className="text-center">
+                <button
+                  onClick={() => handleDeleteCartItem(cart._id)}
+                  className="btn btn-error"
+                >
+                  Delete
+                </button>
+              </div>
             </div>
-          </div>
+          ))}
         </div>
       </div>
       <Footer></Footer>

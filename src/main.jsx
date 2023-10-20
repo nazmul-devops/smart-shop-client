@@ -17,6 +17,7 @@ import NotFound from "./components/Pages/NotFound.jsx";
 import UpdateProduct from "./components/Pages/UpdateProduct.jsx";
 import ProductDetails from "./components/Pages/ProductDetails.jsx";
 import BrandProducts from "./components/Pages/BrandProducts.jsx";
+import AllProducts from "./components/Pages/AllProducts.jsx";
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,11 @@ const router = createBrowserRouter([
       {
         path: "/brandProducts/:brandName",
         element: <BrandProducts></BrandProducts>,
+      },
+      {
+        path: "/allProducts",
+        element: <AllProducts></AllProducts>,
+        loader: () => fetch(`https://smart-shop.inneedcloud.com/products/`),
       },
       {
         path: "/addProduct",
@@ -63,7 +69,6 @@ const router = createBrowserRouter([
             <MyCart></MyCart>
           </PrivateRoutes>
         ),
-        // loader: () => fetch(`http://localhost:5001/products/myCart`),
       },
       {
         path: "/register",

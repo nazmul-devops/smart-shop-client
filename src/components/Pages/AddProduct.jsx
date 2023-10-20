@@ -30,7 +30,7 @@ const AddProduct = () => {
       .then(data => {
         console.log(data);
       });
-    navigate("/brandProducts");
+    navigate("/allProducts");
     toast.success("Product Added successfully.");
   };
 

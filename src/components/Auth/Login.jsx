@@ -39,7 +39,7 @@ const Login = () => {
         console.log(result.user);
         setShowToast(true);
         setTimeout(() => {
-          navigate("/myCart");
+          navigate("/allProducts");
         }, 1000);
       })
       .catch(error => {
