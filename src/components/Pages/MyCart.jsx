@@ -10,7 +10,10 @@ import { Link } from "react-router-dom";
 
 const MyCart = () => {
   const { user } = useContext(AuthContext);
+  
   const userEmail = user.email;
+
+  const [cartData, setCartData] = useState([]);
 
   const fetchUserCart = () => {
     fetch(`https://smart-shop-server.abcfanbd.com/get-cart/${userEmail}`)
@@ -51,7 +54,6 @@ const MyCart = () => {
     });
   };
 
-  const [cartData, setCartData] = useState([]);
   useEffect(() => {
     fetchUserCart();
   }, []);

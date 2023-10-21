@@ -3,7 +3,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { Link, useLoaderData, useNavigate } from "react-router-dom";
 import Footer from "../Shared/Footer";
 import Header from "../Shared/Header";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 
 const ProductDetails = () => {
@@ -12,6 +12,7 @@ const ProductDetails = () => {
   console.log(userEmail);
 
   const navigate = useNavigate();
+  const [cartData, setCartData] = useState([]);
 
   const loadedProduct = useLoaderData();
 
@@ -30,6 +31,7 @@ const ProductDetails = () => {
     })
       .then(res => res.json())
       .then(data => {
+        setCartData(prevCart => prevCart.filter());
         console.log(data);
       });
     navigate("/myCart");
