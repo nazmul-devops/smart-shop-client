@@ -13,6 +13,7 @@ const ProductDetails = () => {
 
   const navigate = useNavigate();
   const [cartData, setCartData] = useState([]);
+  console.log(cartData);
 
   const loadedProduct = useLoaderData();
 
